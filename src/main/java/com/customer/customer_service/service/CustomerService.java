@@ -4,6 +4,7 @@ import com.customer.customer_service.entity.CustomerEntity;
 import com.customer.customer_service.model.Customer;
 import com.customer.customer_service.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,7 +33,14 @@ public class CustomerService {
         Optional<CustomerEntity> customerEntity = customerRepository.findById(id);
         return customerEntity.map(CustomerService::toModel);
     }
-
+    
+    public boolean deleteCustomer(Long id) {
+        if (customerRepository.existsById(id)) {
+            customerRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
 
     // Convert Entity -> Model
     public static Customer toModel(CustomerEntity entity) {
@@ -57,4 +65,6 @@ public class CustomerService {
         entity.setStatus(model.isStatus());
         return entity;
     }
+
+
 }

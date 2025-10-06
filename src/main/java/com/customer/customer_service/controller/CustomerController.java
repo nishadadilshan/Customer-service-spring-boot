@@ -1,6 +1,5 @@
 package com.customer.customer_service.controller;
 
-import com.customer.customer_service.entity.CustomerEntity;
 import com.customer.customer_service.model.Customer;
 import com.customer.customer_service.service.CustomerService;
 import jakarta.validation.Valid;
@@ -59,5 +58,19 @@ public class CustomerController {
         }
 
         return ResponseEntity.ok(customer);
+    }
+
+    @DeleteMapping(value = "/delete/{id}", produces = "application/json")
+    public ResponseEntity<?> deleteCustomer(@PathVariable Long id){
+        try {
+            boolean isDeleted = customerService.deleteCustomer(id);
+            if(isDeleted){
+                return new ResponseEntity<>("Successfully deleted customer", HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("Customer not found", HttpStatus.NOT_FOUND);
+            }
+        }catch (Exception e){
+            return new ResponseEntity<>("Error deleting customer: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
