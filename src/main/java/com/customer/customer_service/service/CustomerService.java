@@ -4,7 +4,6 @@ import com.customer.customer_service.entity.CustomerEntity;
 import com.customer.customer_service.model.Customer;
 import com.customer.customer_service.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -40,6 +39,22 @@ public class CustomerService {
             return true;
         }
         return false;
+    }
+    
+    public Optional<Customer> updateCustomer(Long id, Customer customer) {
+        Optional<CustomerEntity> existingEntity = customerRepository.findById(id);
+        if (existingEntity.isPresent()) {
+            CustomerEntity entity = existingEntity.get();
+            // Update the fields
+            entity.setName(customer.getName());
+            entity.setAddress(customer.getAddress());
+            entity.setEmail(customer.getEmail());
+            entity.setStatus(customer.isStatus());
+            
+            CustomerEntity updatedEntity = customerRepository.save(entity);
+            return Optional.of(toModel(updatedEntity));
+        }
+        return Optional.empty();
     }
 
     // Convert Entity -> Model

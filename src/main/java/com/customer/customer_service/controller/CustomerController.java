@@ -73,4 +73,18 @@ public class CustomerController {
             return new ResponseEntity<>("Error deleting customer: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @PutMapping(value = "/update/{id}", produces = "application/json")
+    public ResponseEntity<?> updateCustomer(@PathVariable Long id, @Valid @RequestBody Customer customer){
+        try {
+            Optional<Customer> updatedCustomer = customerService.updateCustomer(id, customer);
+            if(updatedCustomer.isPresent()){
+                return ResponseEntity.ok(updatedCustomer.get());
+            } else {
+                return new ResponseEntity<>("Customer not found", HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e){
+            return new ResponseEntity<>("Error updating customer: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
