@@ -3,6 +3,7 @@ package com.customer.customer_service.model;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
@@ -12,6 +13,7 @@ public class Customer {
     
     @NotBlank(message = "Name is required")
     @Size(max = 100, message = "Name must not exceed 100 characters")
+    @Pattern(regexp = "^[a-zA-Z\\s\\-'\\u00C0-\\u017F]+$", message = "Name can only contain letters, spaces, hyphens, apostrophes, and accented characters")
     private String name;
     
     @Size(max = 255, message = "Address must not exceed 255 characters")
