@@ -21,7 +21,7 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
-    @GetMapping(value = "/getCustomers", produces = "application/json")
+    @GetMapping(value = "/all", produces = "application/json")
     public ResponseEntity<?> getCustomers(){
         try{
 
@@ -33,7 +33,7 @@ public class CustomerController {
         }
     }
 
-    @GetMapping(value = "/getCustomer/{id}")
+    @GetMapping(value = "/{id}")
     public ResponseEntity<?> getCustomerById(@PathVariable Long id){
         try {
             Optional<Customer> customer = customerService.getCustomerById(id);
@@ -49,7 +49,7 @@ public class CustomerController {
 
     }
 
-    @PostMapping(value = "/create", produces = "application/json")
+    @PostMapping(produces = "application/json")
     public ResponseEntity<?> create(@Valid @RequestBody Customer customer){
         try{
             customer = customerService.create(customer);
@@ -61,7 +61,7 @@ public class CustomerController {
         return ResponseEntity.ok(customer);
     }
 
-    @DeleteMapping(value = "/delete/{id}", produces = "application/json")
+    @DeleteMapping(value = "/{id}", produces = "application/json")
     public ResponseEntity<?> deleteCustomer(@PathVariable Long id){
         try {
             boolean isDeleted = customerService.deleteCustomer(id);
@@ -75,7 +75,7 @@ public class CustomerController {
         }
     }
 
-    @PutMapping(value = "/update/{id}", produces = "application/json")
+    @PutMapping(value = "/{id}", produces = "application/json")
     public ResponseEntity<?> updateCustomer(@PathVariable Long id, @Valid @RequestBody Customer customer){
         try {
             Optional<Customer> updatedCustomer = customerService.updateCustomer(id, customer);
