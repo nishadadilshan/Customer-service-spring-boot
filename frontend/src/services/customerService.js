@@ -6,7 +6,7 @@ const customerService = {
   // Get all customers
   getAllCustomers: async () => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/getCustomers`);
+      const response = await axios.get(`${API_BASE_URL}/all`);
       return response.data;
     } catch (error) {
       console.error('Error fetching customers:', error);
@@ -17,7 +17,7 @@ const customerService = {
   // Get customer by ID
   getCustomerById: async (id) => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/getCustomer/${id}`);
+      const response = await axios.get(`${API_BASE_URL}/${id}`);
       return response.data;
     } catch (error) {
       console.error('Error fetching customer:', error);
@@ -28,7 +28,7 @@ const customerService = {
   // Create new customer
   createCustomer: async (customer) => {
     try {
-      const response = await axios.post(`${API_BASE_URL}/create`, customer);
+      const response = await axios.post(`${API_BASE_URL}`, customer);
       return response.data;
     } catch (error) {
       console.error('Error creating customer:', error);
@@ -39,7 +39,7 @@ const customerService = {
   // Update customer
   updateCustomer: async (id, customer) => {
     try {
-      const response = await axios.put(`${API_BASE_URL}/update/${id}`, customer);
+      const response = await axios.put(`${API_BASE_URL}/${id}`, customer);
       return response.data;
     } catch (error) {
       console.error('Error updating customer:', error);
@@ -50,7 +50,7 @@ const customerService = {
   // Delete customer
   deleteCustomer: async (id) => {
     try {
-      const response = await axios.delete(`${API_BASE_URL}/delete/${id}`);
+      const response = await axios.delete(`${API_BASE_URL}/${id}`);
       return response.data;
     } catch (error) {
       console.error('Error deleting customer:', error);

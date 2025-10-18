@@ -85,30 +85,31 @@ const CustomerForm = () => {
 
   if (initialLoading) {
     return (
-      <div className="loading-container">
-        <Loader className="loading-spinner" />
-        <p>Loading customer details...</p>
+      <div className="loading-container" data-testid="loading-container">
+        <Loader className="loading-spinner" data-testid="loading-spinner" />
+        <p data-testid="loading-text">Loading customer details...</p>
       </div>
     );
   }
 
   return (
-    <div className="form-container">
-      <div className="form-header">
+    <div className="form-container" data-testid="form-container">
+      <div className="form-header" data-testid="form-header">
         <button
           onClick={() => navigate('/')}
           className="btn btn-secondary btn-sm"
+          data-testid="back-button"
         >
           <ArrowLeft className="btn-icon" />
           Back to Customers
         </button>
-        <h2>{isEdit ? 'Edit Customer' : 'Add New Customer'}</h2>
+        <h2 data-testid="form-title">{isEdit ? 'Edit Customer' : 'Add New Customer'}</h2>
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="customer-form">
-        <div className="form-grid">
-          <div className="form-group">
-            <label htmlFor="name" className="form-label">
+      <form onSubmit={handleSubmit(onSubmit)} className="customer-form" data-testid="customer-form">
+        <div className="form-grid" data-testid="form-grid">
+          <div className="form-group" data-testid="name-form-group">
+            <label htmlFor="name" className="form-label" data-testid="name-label">
               <User className="label-icon" />
               Full Name *
             </label>
@@ -117,6 +118,7 @@ const CustomerForm = () => {
               id="name"
               className={`form-input ${errors.name ? 'error' : ''}`}
               placeholder="Enter customer's full name"
+              data-testid="name-input"
               {...register('name', {
                 required: 'Name is required',
                 maxLength: {
@@ -130,12 +132,12 @@ const CustomerForm = () => {
               })}
             />
             {errors.name && (
-              <span className="error-message">{errors.name.message}</span>
+              <span className="error-message" data-testid="name-error">{errors.name.message}</span>
             )}
           </div>
 
-          <div className="form-group">
-            <label htmlFor="email" className="form-label">
+          <div className="form-group" data-testid="email-form-group">
+            <label htmlFor="email" className="form-label" data-testid="email-label">
               <Mail className="label-icon" />
               Email Address *
             </label>
@@ -144,6 +146,7 @@ const CustomerForm = () => {
               id="email"
               className={`form-input ${errors.email ? 'error' : ''}`}
               placeholder="Enter customer's email address"
+              data-testid="email-input"
               {...register('email', {
                 required: 'Email is required',
                 pattern: {
@@ -157,12 +160,12 @@ const CustomerForm = () => {
               })}
             />
             {errors.email && (
-              <span className="error-message">{errors.email.message}</span>
+              <span className="error-message" data-testid="email-error">{errors.email.message}</span>
             )}
           </div>
 
-          <div className="form-group full-width">
-            <label htmlFor="address" className="form-label">
+          <div className="form-group full-width" data-testid="address-form-group">
+            <label htmlFor="address" className="form-label" data-testid="address-label">
               <MapPin className="label-icon" />
               Address
             </label>
@@ -171,6 +174,7 @@ const CustomerForm = () => {
               className={`form-input ${errors.address ? 'error' : ''}`}
               placeholder="Enter customer's address (optional)"
               rows="3"
+              data-testid="address-input"
               {...register('address', {
                 maxLength: {
                   value: 255,
@@ -179,34 +183,36 @@ const CustomerForm = () => {
               })}
             />
             {errors.address && (
-              <span className="error-message">{errors.address.message}</span>
+              <span className="error-message" data-testid="address-error">{errors.address.message}</span>
             )}
           </div>
 
-          <div className="form-group">
-            <label className="form-label">Status</label>
-            <div className="status-toggle">
+          <div className="form-group" data-testid="status-form-group">
+            <label className="form-label" data-testid="status-label">Status</label>
+            <div className="status-toggle" data-testid="status-toggle">
               <button
                 type="button"
                 onClick={toggleStatus}
                 className={`toggle-button ${status ? 'active' : 'inactive'}`}
+                data-testid="status-toggle-button"
               >
                 {status ? (
                   <ToggleRight className="toggle-icon" />
                 ) : (
                   <ToggleLeft className="toggle-icon" />
                 )}
-                <span>{status ? 'Active' : 'Inactive'}</span>
+                <span data-testid="status-text">{status ? 'Active' : 'Inactive'}</span>
               </button>
             </div>
           </div>
         </div>
 
-        <div className="form-actions">
+        <div className="form-actions" data-testid="form-actions">
           <button
             type="button"
             onClick={() => navigate('/')}
             className="btn btn-secondary"
+            data-testid="cancel-button"
           >
             Cancel
           </button>
@@ -214,6 +220,7 @@ const CustomerForm = () => {
             type="submit"
             className="btn btn-primary"
             disabled={loading}
+            data-testid="submit-button"
           >
             {loading ? (
               <Loader className="btn-icon spinning" />

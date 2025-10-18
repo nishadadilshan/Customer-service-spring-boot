@@ -5,6 +5,7 @@ import com.customer.customer_service.model.Customer;
 import com.customer.customer_service.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -41,6 +42,7 @@ public class CustomerService {
         return false;
     }
     
+    @Transactional
     public Optional<Customer> updateCustomer(Long id, Customer customer) {
         Optional<CustomerEntity> existingEntity = customerRepository.findById(id);
         if (existingEntity.isPresent()) {
